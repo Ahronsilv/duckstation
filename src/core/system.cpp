@@ -4537,7 +4537,8 @@ std::string System::GetCheatFileName()
 
   const std::string& title = System::GetGameTitle();
   if (!title.empty())
-    ret = Path::Combine(EmuFolders::Cheats, fmt::format("{}.cht", title.c_str()));
+    ret = Path::Combine(EmuFolders::Cheats,
+                        fmt::format("{} {}.cht", title.c_str(), Achievements::IsHardcoreModeActive() ? "Patches" : ""));
 
   return ret;
 }
@@ -4573,7 +4574,7 @@ bool System::LoadCheatList()
 
 bool System::LoadCheatListFromDatabase()
 {
-  if (IsShutdown() || s_running_game_serial.empty() || Achievements::IsHardcoreModeActive())
+  if (IsShutdown() || s_running_game_serial.empty())
     return false;
 
   std::unique_ptr<CheatList> cl = std::make_unique<CheatList>();

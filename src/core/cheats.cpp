@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: (GPL-3.0 OR CC-BY-NC-ND-4.0)
 
 #include "cheats.h"
+#include "achievements.h"
 #include "bus.h"
 #include "common/assert.h"
 #include "common/byte_stream.h"
@@ -689,7 +690,8 @@ bool CheatList::SaveToPCSXRFile(const char* filename)
 
 bool CheatList::LoadFromPackage(const std::string& serial)
 {
-  const std::optional<std::string> db_string(Host::ReadResourceFileToString("chtdb.txt", false));
+  const std::optional<std::string> db_string(
+    Host::ReadResourceFileToString(Achievements::IsHardcoreModeActive() ? "ptchdb.txt" : "chtdb.txt", false));
   if (!db_string.has_value())
     return false;
 
