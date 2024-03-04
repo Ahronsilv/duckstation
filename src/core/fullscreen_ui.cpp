@@ -4895,8 +4895,13 @@ void FullscreenUI::DrawPauseMenu()
             s_current_main_window = MainWindowType::None;
         }
 
-        if (ActiveButton(FSUI_ICONSTR(ICON_FA_FROWN_OPEN, "Cheat List"), false,
-                         !System::GetGameSerial().empty() && g_settings.enable_cheats))
+        std::string cheatListName = "Cheat List";
+        if (Achievements::IsHardcoreModeActive())
+        {
+          cheatListName += " (patches only)";
+        }
+
+        if (ActiveButton(FSUI_ICONSTR(ICON_FA_FROWN_OPEN, cheatListName.c_str()), false, has_game && g_settings.enable_cheats))
         {
           s_current_main_window = MainWindowType::None;
           DoCheatsMenu();
