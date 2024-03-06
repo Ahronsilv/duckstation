@@ -33,6 +33,8 @@ add_library(util
   host.h
   http_downloader.cpp
   http_downloader.h
+  image.cpp
+  image.h
   imgui_fullscreen.cpp
   imgui_fullscreen.h
   imgui_manager.cpp
@@ -75,7 +77,7 @@ target_precompile_headers(util PRIVATE "pch.h")
 target_include_directories(util PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/..")
 target_include_directories(util PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
 target_link_libraries(util PUBLIC common simpleini imgui)
-target_link_libraries(util PRIVATE stb libchdr ZLIB::ZLIB soundtouch xxhash Zstd::Zstd reshadefx)
+target_link_libraries(util PRIVATE libchdr JPEG::JPEG PNG::PNG ZLIB::ZLIB soundtouch xxhash Zstd::Zstd reshadefx)
 
 if(ENABLE_CUBEB)
   target_sources(util PRIVATE
